@@ -30,9 +30,7 @@ const LETTER_NAMES_HI: Record<string, string> = {
   W: 'डब्ल्यू',
   X: 'एक्स',
   Y: 'वाई',
-  // BUG 1: 'Z' key removed/renamed to 'z' (lowercase) -> lookup for 'Z' will be undefined,
-  // so SpeechSynthesisUtterance gets `undefined` as text for the letter Z.
-  z: 'ज़ेड',
+  Z: 'ज़ेड',
 }
 
 let activeUtterance: SpeechSynthesisUtterance | null = null
@@ -43,8 +41,7 @@ function speakLetter(letter: string) {
     return
   }
 
-  // BUG 2: removed window.speechSynthesis.cancel() here.
-  // Rapid clicks now queue overlapping utterances instead of replacing them.
+  window.speechSynthesis.cancel()
   if (speakTimer !== undefined) {
     clearTimeout(speakTimer)
   }
@@ -55,9 +52,7 @@ function speakLetter(letter: string) {
     }
 
     activeUtterance = new SpeechSynthesisUtterance(LETTER_NAMES_HI[letter])
-    // BUG 3: lang changed from 'hi-IN' to 'en-IN' -> Devanagari text will be
-    // mispronounced/skipped by most TTS engines since the language tag doesn't match the script.
-    activeUtterance.lang = 'en-IN'
+    activeUtterance.lang = 'hi-IN'
     activeUtterance.rate = 0.85
     window.speechSynthesis.speak(activeUtterance)
   }, 50)
@@ -95,9 +90,7 @@ function App() {
             key={letter}
             type="button"
             role="listitem"
-            // BUG 4: comparing activeLetter to letter.toLowerCase() instead of letter,
-            // so the 'is-active' highlight class never applies (activeLetter is always uppercase).
-            className={`letter-btn${activeLetter === letter.toLowerCase() ? ' is-active' : ''}`}
+            className={`letter-btn${activeLetter === letter ? ' is-active' : ''}`}
             onClick={() => handleLetterClick(letter)}
             aria-label={`Letter ${letter}`}
           >
