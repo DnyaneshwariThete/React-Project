@@ -1,0 +1,95 @@
+.alphabet-app {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  padding: 40px 28px 48px;
+  flex-grow: 1;
+}
+
+.alphabet-header h1 {
+  margin: 0 0 8px;
+}
+
+.alphabet-header p {
+  color: var(--text);
+}
+
+.active-letter {
+  min-height: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: var(--accent-bg);
+}
+
+.active-letter-upper,
+.active-letter-lower {
+  font-size: 72px;
+  line-height: 1;
+  font-weight: 600;
+  color: var(--text-h);
+}
+
+.active-letter-lower {
+  color: var(--accent);
+}
+
+.active-letter-hint {
+  font-size: 20px;
+  color: var(--text);
+}
+
+.alphabet-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(72px, 1fr));
+  gap: 12px;
+}
+
+.letter-btn {
+  aspect-ratio: 1;
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-h);
+  background: var(--social-bg);
+  border: 2px solid transparent;
+  border-radius: 14px;
+  cursor: pointer;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.letter-btn:hover {
+  border-color: var(--accent-border);
+  box-shadow: var(--shadow);
+}
+
+.letter-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+.letter-btn.is-active,
+.letter-btn:active {
+  transform: scale(0.96);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+@media (max-width: 1024px) {
+  .alphabet-app {
+    padding: 24px 16px 32px;
+    gap: 20px;
+  }
+
+  .active-letter {
+    min-height: 96px;
+  }
+
+  .active-letter-upper,
+  .active-letter-lower {
+    font-size: 56px;
+  }
+}
