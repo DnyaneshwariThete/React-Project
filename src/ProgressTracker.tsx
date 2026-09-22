@@ -1,7 +1,7 @@
 import './ProgressTracker.css'
 
 interface ProgressTrackerProps {
-  visitedLetters: Set<string>
+  visitedLetters: string[]
   totalLetters: number
 }
 
@@ -11,24 +11,32 @@ interface ProgressTrackerProps {
  * state so it can be shared with other components later if needed.
  */
 function ProgressTracker({ visitedLetters, totalLetters }: ProgressTrackerProps) {
-  const learnedCount = visitedLetters.size
-  const percent = totalLetters === 0 ? 0 : Math.round((learnedCount / totalLetters) * 100)
+  const learnedCount = visitedLetters.length
+  const rawPercent = totalLetters === 0 ? 0 : (learnedCount / totalLetters) * 100
+  const percent = Math.max(0, Math.min(100, Math.round(rawPercent)))
   const isComplete = learnedCount === totalLetters
+  const progressText = `${learnedCount} of ${totalLetters} letters learned (${percent}%)`
 
   return (
-    <section className="progress-tracker" aria-label="Learning progress">
-      <div className="progress-tracker-label">
+    <section className="progress-tracker">
+      <div className="progress-tracker-label" id="progress-tracker-label">
         <span>
           {learnedCount} / {totalLetters} letters learned
         </span>
-        {isComplete && <span className="progress-tracker-complete">🎉 All done!</span>}
+        {isComplete && (
+          <span className="progress-tracker-complete">
+            <span aria-hidden="true">🎉 </span>All done!
+          </span>
+        )}
       </div>
       <div
         className="progress-tracker-bar"
         role="progressbar"
+        aria-labelledby="progress-tracker-label"
         aria-valuenow={learnedCount}
         aria-valuemin={0}
         aria-valuemax={totalLetters}
+        aria-valuetext={progressText}
       >
         <div className="progress-tracker-fill" style={{ width: `${percent}%` }} />
       </div>
