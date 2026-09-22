@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import './App.css'
 import ProgressTracker from './ProgressTracker'
+import LetterExample from './LetterExample'
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
@@ -95,6 +96,8 @@ function App() {
           <span className="active-letter-hint">Pick a letter</span>
         )}
       </div>
+
+      <LetterExample letter={activeLetter} />
 
       <div className="alphabet-grid" role="list">
         {LETTERS.map((letter) => (

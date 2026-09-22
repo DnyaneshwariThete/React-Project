@@ -1,0 +1,18 @@
+.letter-example {
+    display: flex;
+    align-items: baseline;
+    justify-content: center;
+    gap: 0.5rem;
+    margin: 0.5rem 0 1.5rem;
+    font-size: 1.1rem;
+  }
+  
+  .letter-example-word {
+    font-weight: 700;
+    color: #3949ab;
+  }
+  
+  .letter-example-translation {
+    color: #666;
+    font-size: 0.95rem;
+  }
