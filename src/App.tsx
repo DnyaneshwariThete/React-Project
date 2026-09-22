@@ -63,7 +63,7 @@ function App() {
 
   function handleLetterClick(letter: string) {
     setActiveLetter(letter)
-    speakLetter(activeLetter as string)
+    speakLetter(letter)
   }
 
   return (
