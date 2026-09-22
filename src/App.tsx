@@ -62,19 +62,12 @@ function speakLetter(letter: string) {
 
 function App() {
   const [activeLetter, setActiveLetter] = useState<string | null>(null)
-  const [visitedLetters, setVisitedLetters] = useState<Set<string>>(new Set())
+  const [visitedLetters, setVisitedLetters] = useState<string[]>([])
 
   function handleLetterClick(letter: string) {
     setActiveLetter(letter)
     speakLetter(letter)
-    setVisitedLetters((prev) => {
-      if (prev.has(letter)) {
-        return prev
-      }
-      const next = new Set(prev)
-      next.add(letter)
-      return next
-    })
+    setVisitedLetters((prev) => (prev.includes(letter) ? prev : [...prev, letter]))
   }
 
   return (
@@ -106,7 +99,7 @@ function App() {
             type="button"
             role="listitem"
             className={`letter-btn${activeLetter === letter ? ' is-active' : ''}${
-              visitedLetters.has(letter) ? ' is-visited' : ''
+              visitedLetters.includes(letter) ? ' is-visited' : ''
             }`}
             onClick={() => handleLetterClick(letter)}
             aria-label={`Letter ${letter}`}

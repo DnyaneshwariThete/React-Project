@@ -1,47 +1,59 @@
-import './ProgressTracker.css'
+import './LetterExample.css'
 
-interface ProgressTrackerProps {
-  visitedLetters: string[]
-  totalLetters: number
+interface LetterExampleProps {
+  letter: string | null
+}
+
+/** English letter -> a simple, kid-friendly Hindi example word + translation. */
+const EXAMPLE_WORDS: Record<string, { hi: string; translation: string }> = {
+  A: { hi: 'अनार', translation: 'Pomegranate' },
+  B: { hi: 'बकरी', translation: 'Goat' },
+  C: { hi: 'चाय', translation: 'Tea' },
+  D: { hi: 'डमरू', translation: 'Hand drum' },
+  E: { hi: 'ऐनक', translation: 'Glasses' },
+  F: { hi: 'फल', translation: 'Fruit' },
+  G: { hi: 'गाय', translation: 'Cow' },
+  H: { hi: 'हाथी', translation: 'Elephant' },
+  I: { hi: 'इमली', translation: 'Tamarind' },
+  J: { hi: 'जहाज़', translation: 'Ship' },
+  K: { hi: 'किताब', translation: 'Book' },
+  L: { hi: 'लड्डू', translation: 'Laddu' },
+  M: { hi: 'मछली', translation: 'Fish' },
+  N: { hi: 'नाव', translation: 'Boat' },
+  O: { hi: 'ओखली', translation: 'Mortar' },
+  P: { hi: 'पतंग', translation: 'Kite' },
+  Q: { hi: 'क्यूब', translation: 'Cube' },
+  R: { hi: 'रेल', translation: 'Train' },
+  S: { hi: 'सूरज', translation: 'Sun' },
+  T: { hi: 'तितली', translation: 'Butterfly' },
+  U: { hi: 'उल्लू', translation: 'Owl' },
+  V: { hi: 'वृक्ष', translation: 'Tree' },
+  W: { hi: 'वॉच', translation: 'Watch' },
+  X: { hi: 'एक्स-रे', translation: 'X-ray' },
+  Y: { hi: 'योगा', translation: 'Yoga' },
+  Z: { hi: 'ज़ेबरा', translation: 'Zebra' },
 }
 
 /**
- * Shows how many letters the user has explored so far, as a count and a
- * progress bar. Purely presentational — the parent owns the visited-letter
- * state so it can be shared with other components later if needed.
+ * Shows a simple example word for the currently active letter, to reinforce
+ * what the child just heard. Renders nothing until a letter has been picked.
  */
-function ProgressTracker({ visitedLetters, totalLetters }: ProgressTrackerProps) {
-  const learnedCount = visitedLetters.length
-  const rawPercent = totalLetters === 0 ? 0 : (learnedCount / totalLetters) * 100
-  const percent = Math.max(0, Math.min(100, Math.round(rawPercent)))
-  const isComplete = learnedCount === totalLetters
-  const progressText = `${learnedCount} of ${totalLetters} letters learned (${percent}%)`
+function LetterExample({ letter }: LetterExampleProps) {
+  if (!letter) {
+    return null
+  }
+
+  const example = EXAMPLE_WORDS[letter]
+  if (!example) {
+    return null
+  }
 
   return (
-    <section className="progress-tracker">
-      <div className="progress-tracker-label" id="progress-tracker-label">
-        <span>
-          {learnedCount} / {totalLetters} letters learned
-        </span>
-        {isComplete && (
-          <span className="progress-tracker-complete">
-            <span aria-hidden="true">🎉 </span>All done!
-          </span>
-        )}
-      </div>
-      <div
-        className="progress-tracker-bar"
-        role="progressbar"
-        aria-labelledby="progress-tracker-label"
-        aria-valuenow={learnedCount}
-        aria-valuemin={0}
-        aria-valuemax={totalLetters}
-        aria-valuetext={progressText}
-      >
-        <div className="progress-tracker-fill" style={{ width: `${percent}%` }} />
-      </div>
-    </section>
+    <div className="letter-example" aria-live="polite">
+      <span className="letter-example-word">{example.hi}</span>
+      <span className="letter-example-translation">{example.translation}</span>
+    </div>
   )
 }
 
-export default ProgressTracker
+export default LetterExample
