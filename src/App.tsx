@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import './App.css'
-import ProgressTracker from './ProgressTracker'
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
@@ -61,12 +60,10 @@ function speakLetter(letter: string) {
 
 function App() {
   const [activeLetter, setActiveLetter] = useState<string | null>(null)
-  const [visitedLetters, setVisitedLetters] = useState<string[]>([])
 
   function handleLetterClick(letter: string) {
     setActiveLetter(letter)
     speakLetter(letter)
-    setVisitedLetters((prev) => (prev.includes(letter) ? prev : [...prev, letter]))
   }
 
   return (
@@ -75,8 +72,6 @@ function App() {
         <h1>Alphabet A to Z</h1>
         <p>Tap a letter to hear the Indian pronunciation.</p>
       </header>
-
-      <ProgressTracker visitedLetters={visitedLetters} totalLetters={LETTERS.length} />
 
       <div className="active-letter" aria-live="polite">
         {activeLetter ? (
@@ -95,9 +90,7 @@ function App() {
             key={letter}
             type="button"
             role="listitem"
-            className={`letter-btn${activeLetter === letter ? ' is-active' : ''}${
-              visitedLetters.includes(letter) ? ' is-visited' : ''
-            }`}
+            className={`letter-btn${activeLetter === letter ? ' is-active' : ''}`}
             onClick={() => handleLetterClick(letter)}
             aria-label={`Letter ${letter}`}
           >
