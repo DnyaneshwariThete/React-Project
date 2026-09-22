@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import './App.css'
+import ThemeToggle from './Theme'
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
@@ -68,6 +69,8 @@ function App() {
 
   return (
     <main className="alphabet-app">
+      <ThemeToggle />
+
       <header className="alphabet-header">
         <h1>Alphabet A to Z</h1>
         <p>Tap a letter to hear the Indian pronunciation.</p>
