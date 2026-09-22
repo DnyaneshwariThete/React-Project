@@ -93,6 +93,7 @@ function App() {
             className={`letter-btn${activeLetter === letter ? ' is-active' : ''}`}
             onClick={() => handleLetterClick(letter)}
             aria-label={`Letter ${letter}`}
+            
           >
             {letter}
           </button>
