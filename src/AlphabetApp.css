@@ -1,5 +1,4 @@
 .alphabet-app {
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 28px;
@@ -74,6 +73,16 @@
 .letter-btn.is-active,
 .letter-btn:active {
   transform: scale(0.96);
+  border-color: var(--accent);
+  background: var(--accent-bg);
+  color: var(--accent);
+}
+
+.letter-btn.is-visited {
+  border-color: var(--accent-border);
+}
+
+.letter-btn.is-visited.is-active {
   border-color: var(--accent);
   background: var(--accent-bg);
   color: var(--accent);
