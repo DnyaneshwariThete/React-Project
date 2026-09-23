@@ -3,7 +3,7 @@ import './App.css'
 
 const LETTERS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('')
 
-/** Indian school letter names in Devanagari (ए बी सी … ज़ेड). */
+/** Indian school letter names in Devanagari, used for TTS playback (ए बी सी … ज़ेड). */
 const LETTER_NAMES_HI: Record<string, string> = {
   A: 'ए',
   B: 'बी',
